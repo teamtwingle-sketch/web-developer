@@ -83,7 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================= */
     const sendBtn = document.getElementById('sendMessageBtn');
     if (sendBtn) {
-        sendBtn.addEventListener('click', () => {
+        console.log('WhatsApp button ready');
+        sendBtn.addEventListener('click', (e) => {
+            console.log('Button clicked');
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
@@ -97,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const encodedMessage = encodeURIComponent(whatsappMessage);
             const whatsappURL = `https://wa.me/919747818567?text=${encodedMessage}`;
 
-            window.open(whatsappURL, '_blank');
+            console.log('Redirecting to:', whatsappURL);
+            window.location.href = whatsappURL;
         });
     }
 
