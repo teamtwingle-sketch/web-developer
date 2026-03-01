@@ -81,26 +81,37 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================
        WhatsApp Contact Form Integration
        ========================================= */
-    const sendBtn = document.getElementById('sendMessageBtn');
-    if (sendBtn) {
-        console.log('WhatsApp button ready');
-        sendBtn.addEventListener('click', (e) => {
-            console.log('Button clicked');
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent actual form submission to server
+
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            if (!name || !message) {
-                alert('Please fill in at least your name and your message!');
-                return;
-            }
+            // Change button state for feedback
+            const submitBtn = document.getElementById('sendMessageBtn');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Opening WhatsApp...";
+            submitBtn.style.opacity = "0.7";
+            submitBtn.disabled = true;
 
             const whatsappMessage = `Hi Adarsh, my name is ${name} (${email}). I have a project inquiry: ${message}`;
             const encodedMessage = encodeURIComponent(whatsappMessage);
             const whatsappURL = `https://wa.me/919747818567?text=${encodedMessage}`;
 
-            console.log('Redirecting to:', whatsappURL);
-            window.location.href = whatsappURL;
+            // Small delay for visual feedback before redirecting
+            setTimeout(() => {
+                window.location.href = whatsappURL;
+
+                // Reset button after a while in case they come back
+                setTimeout(() => {
+                    submitBtn.innerText = originalText;
+                    submitBtn.style.opacity = "1";
+                    submitBtn.disabled = false;
+                }, 2000);
+            }, 500);
         });
     }
 
