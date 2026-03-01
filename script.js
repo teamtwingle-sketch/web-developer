@@ -78,5 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    /* =========================================
+       WhatsApp Contact Form Integration
+       ========================================= */
+    const sendBtn = document.getElementById('sendMessageBtn');
+    if (sendBtn) {
+        sendBtn.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !message) {
+                alert('Please fill in at least your name and your message!');
+                return;
+            }
+
+            const whatsappMessage = `Hi Adarsh, my name is ${name} (${email}). I have a project inquiry: ${message}`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappURL = `https://wa.me/919747818567?text=${encodedMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        });
+    }
 
 });
